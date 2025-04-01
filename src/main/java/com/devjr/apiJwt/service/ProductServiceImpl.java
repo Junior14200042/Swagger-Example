@@ -1,5 +1,6 @@
 package com.devjr.apiJwt.service;
 
+import com.devjr.apiJwt.exceptions.ResourceNotFoundException;
 import com.devjr.apiJwt.model.Category;
 import com.devjr.apiJwt.model.Product;
 import com.devjr.apiJwt.repository.CategoryRepository;
@@ -30,7 +31,7 @@ public class ProductServiceImpl implements IProductService{
     public void saveProduct(Product product) {
 
         Category category = categoryRepository.findById(product.getCategory().getId())
-                        .orElseThrow(()->new RuntimeException("category not found"));
+                        .orElseThrow(()->new ResourceNotFoundException("Category not found"));
 
         product.setCategory(category);
 
@@ -40,7 +41,7 @@ public class ProductServiceImpl implements IProductService{
     @Override
     public Product getById(Long id) {
         return productRepository.findById(id)
-                .orElseThrow(()->new RuntimeException("Product not found"));
+                .orElseThrow(()->new ResourceNotFoundException("Product with ID: "+id+" not found"));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.devjr.apiJwt.service;
 
+import com.devjr.apiJwt.exceptions.ResourceNotFoundException;
 import com.devjr.apiJwt.model.Category;
 import com.devjr.apiJwt.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,6 @@ public class CategoryServiceImpl implements ICategoryService{
     @Override
     public Category getById(Long id) {
         return categoryRepository.findById(id)
-                .orElseThrow(()->new RuntimeException("Category not found"));
+                .orElseThrow(()->new ResourceNotFoundException("Category with ID: "+id+" not found"));
     }
 }
